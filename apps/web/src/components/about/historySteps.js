@@ -1,0 +1,115 @@
+export const HISTORY_STEPS = [
+  {
+    text: 'Transformamos datos en decisiones estratégicas para impulsar el crecimiento de tu negocio.',
+    lead: true,
+    theme: 'gold',
+    image: {
+      src: '/img_us.png',
+      alt: 'Equipo DOMAKEA',
+      caption: 'Equipo DOMAKEA',
+      objectPosition: 'center center',
+      tall: true,
+    },
+  },
+  {
+    text: 'Nuestra empresa nació hace dos años de un sueño que finalmente se materializó. Un sueño que creció con la experiencia, con cada proyecto y con cada reto superado.',
+    theme: 'light',
+    image: {
+      src: '/historia-nacimiento.jpg',
+      alt: 'Orígenes de DOMAKEA — trabajo en equipo',
+      caption: 'Donde empezó el sueño',
+      objectPosition: 'center 35%',
+    },
+  },
+  {
+    text: 'Desde nuestros inicios, tuvimos claro que queríamos construir algo más que una agencia: una consultora estratégica capaz de conectar los datos con la esencia humana de los negocios.',
+    theme: 'dark',
+    image: null,
+  },
+  {
+    text: 'A lo largo de nuestro recorrido, hemos transformado ideas en resultados, y resultados en crecimiento. Hemos trabajado con empresas pequeñas y medianas, adaptándonos a cada realidad, demostrando que la efectividad no depende del tamaño, sino de la estrategia.',
+    theme: 'light',
+    image: {
+      src: '/historia-presentacion.jpg',
+      alt: 'Presentación de datos y estrategia',
+      caption: 'Datos ante la sala',
+      objectPosition: 'left center',
+      offsetX: -15,
+      objectPositionMobile: 'center center',
+      offsetXMobile: 0,
+    },
+  },
+  {
+    text: 'Nuestro trabajo ha sido reconocido en distintos espacios profesionales y concursos, pero más allá de los logros, lo que realmente nos define es nuestra capacidad para generar impacto real.',
+    theme: 'gold',
+    image: {
+      src: '/historia-diseno.jpg',
+      alt: 'Diseño y creación de marca',
+      caption: 'Crear con intención',
+      objectPosition: 'center 42%',
+    },
+  },
+  {
+    text: 'En DOMAKEA, creemos que el verdadero éxito no está en nuestro crecimiento, sino en el de quienes confían en nosotros. Cada empresa que asesoramos se convierte en una extensión de nuestro propósito: crear resultados tangibles, medibles y sostenibles.',
+    theme: 'dark',
+    image: null,
+  },
+  {
+    text: 'Porque si no se puede medir, no es estrategia.',
+    emphasis: true,
+    theme: 'gold',
+    image: null,
+  },
+  {
+    text: 'Y eso hacemos nosotros: creamos futuros empresariales más rentables, más medibles y, sobre todo, más humanos.',
+    quote: true,
+    theme: 'light',
+    image: {
+      src: '/historia-drucker.jpg',
+      alt: 'Peter Drucker',
+      caption: 'Peter Drucker',
+      objectPosition: '28% 32%',
+    },
+  },
+  {
+    text: 'No trabajamos con suposiciones, sino con decisiones que construyen resultados.',
+    theme: 'dark',
+    image: null,
+  },
+];
+
+export const THEME_STYLES = {
+  gold: {
+    bg: 'bg-primary',
+    text: 'text-black',
+    muted: 'text-black/55',
+    dim: 'text-black/22',
+    active: 'text-black',
+    highlight: 'bg-black/15',
+    ring: 'ring-black/20',
+    bar: 'bg-black/25',
+    barOn: 'bg-secondary',
+  },
+  light: {
+    bg: 'bg-muted/50',
+    text: 'text-foreground',
+    muted: 'text-foreground/55',
+    dim: 'text-foreground/20',
+    active: 'text-foreground',
+    highlight: 'bg-primary/45',
+    ring: 'ring-primary/25',
+    bar: 'bg-border',
+    barOn: 'bg-primary',
+  },
+  dark: {
+    bg: 'bg-secondary',
+    text: 'text-white',
+    muted: 'text-white/55',
+    dim: 'text-white/18',
+    active: 'text-white',
+    highlight: 'bg-primary/35',
+    ring: 'ring-primary/30',
+    bar: 'bg-white/15',
+    barOn: 'bg-primary',
+  },
+};
