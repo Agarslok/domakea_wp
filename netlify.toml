@@ -1,3 +1,6 @@
+# Variables requeridas en Netlify → Environment (scoped a este site):
+# VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY (o VITE_SUPABASE_PUBLISHABLE_KEY)
+
 [build]
   base = "apps/web"
   command = "npm run build"

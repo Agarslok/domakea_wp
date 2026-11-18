@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import {
   Home,
   Layers,
@@ -36,6 +36,7 @@ const MENU_LINKS = [
   { name: 'Clientes', path: '/portafolio', hint: 'Casos de éxito' },
   { name: 'Sobre nosotros', path: '/sobre-nosotros' },
   { name: 'Contacto', path: '/contacto' },
+  { name: 'Pitch', path: '/pitch', hint: 'Presentación CCB' },
 ];
 
 const SOCIALS = [
@@ -73,13 +74,12 @@ const SOCIALS = [
 
 export const HERO_ROUTES = ['/', '/servicios', '/portafolio', '/sobre-nosotros', '/contacto', '/partners'];
 
-const MobileTopBar = ({ onMenu }) => {
+const MENU_EXIT_MS = 280;
+
+const MobileTopBar = ({ onMenu, menuOpen }) => {
   const { pathname } = useLocation();
   const hasHero = HERO_ROUTES.includes(pathname);
   const [hidden, setHidden] = useState(false);
-
-  const { scrollYProgress } = useScroll();
-  const progress = useSpring(scrollYProgress, { stiffness: 140, damping: 26, mass: 0.3 });
 
   // Se esconde al bajar y reaparece al subir (como las barras de iOS).
   useEffect(() => {
@@ -98,9 +98,10 @@ const MobileTopBar = ({ onMenu }) => {
     <>
       <motion.header
         initial={{ y: -90, opacity: 0 }}
-        animate={{ y: hidden ? -110 : 0, opacity: 1 }}
+        animate={{ y: hidden || menuOpen ? -110 : 0, opacity: menuOpen ? 0 : 1 }}
         transition={{ type: 'spring', stiffness: 260, damping: 28 }}
         className="fixed inset-x-3 top-[calc(env(safe-area-inset-top)+0.75rem)] z-40 md:hidden"
+        style={{ pointerEvents: menuOpen ? 'none' : 'auto' }}
       >
         <div className="glass relative flex h-14 items-center justify-between overflow-hidden rounded-full pl-4 pr-2">
           <Link to="/" aria-label="DOMAKEA - Inicio" onClick={() => haptic()}>
@@ -131,12 +132,6 @@ const MobileTopBar = ({ onMenu }) => {
             </button>
           </div>
 
-          {/* Progreso de lectura */}
-          <motion.div
-            aria-hidden
-            style={{ scaleX: progress }}
-            className="absolute bottom-0 left-6 right-6 h-[2px] origin-left rounded-full bg-primary"
-          />
         </div>
       </motion.header>
 
@@ -213,6 +208,7 @@ const MobileBottomNav = () => {
 
 const MobileMenu = ({ open, onClose }) => {
   const { pathname } = useLocation();
+  const scrollLockRef = useRef({ y: 0, timer: null });
 
   useEffect(() => {
     onClose();
@@ -220,43 +216,53 @@ const MobileMenu = ({ open, onClose }) => {
   }, [pathname]);
 
   useEffect(() => {
+    if (scrollLockRef.current.timer) {
+      clearTimeout(scrollLockRef.current.timer);
+      scrollLockRef.current.timer = null;
+    }
+
     if (!open) return undefined;
 
     const scrollY = window.scrollY;
+    scrollLockRef.current.y = scrollY;
     const { overflow, position, top, width, touchAction } = document.body.style;
-    const htmlOverflowX = document.documentElement.style.overflowX;
+    const htmlOverflow = document.documentElement.style.overflow;
 
     document.body.style.overflow = 'hidden';
     document.body.style.position = 'fixed';
     document.body.style.top = `-${scrollY}px`;
     document.body.style.width = '100%';
     document.body.style.touchAction = 'pan-y';
-    document.documentElement.style.overflowX = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
 
     return () => {
-      document.body.style.overflow = overflow;
-      document.body.style.position = position;
-      document.body.style.top = top;
-      document.body.style.width = width;
-      document.body.style.touchAction = touchAction;
-      document.documentElement.style.overflowX = htmlOverflowX;
-      window.scrollTo(0, scrollY);
+      const savedY = scrollLockRef.current.y;
+      scrollLockRef.current.timer = window.setTimeout(() => {
+        document.body.style.overflow = overflow;
+        document.body.style.position = position;
+        document.body.style.top = top;
+        document.body.style.width = width;
+        document.body.style.touchAction = touchAction;
+        document.documentElement.style.overflow = htmlOverflow;
+        window.scrollTo(0, savedY);
+        scrollLockRef.current.timer = null;
+      }, MENU_EXIT_MS);
     };
   }, [open]);
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {open && (
         <motion.div
           key="mobile-menu"
           role="dialog"
           aria-modal="true"
           aria-label="Menú"
-          initial={{ opacity: 0, y: -48 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -36 }}
-          transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed inset-0 z-50 overflow-x-hidden overflow-y-auto overscroll-y-contain bg-secondary text-secondary-foreground touch-pan-y md:hidden"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: MENU_EXIT_MS / 1000, ease: [0.22, 1, 0.36, 1] }}
+          className="no-scrollbar fixed inset-0 z-50 overflow-x-hidden overflow-y-auto overscroll-y-contain bg-secondary text-secondary-foreground touch-pan-y md:hidden"
           style={{ maxWidth: '100vw' }}
         >
           <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-primary/20 blur-3xl" />
@@ -280,9 +286,9 @@ const MobileMenu = ({ open, onClose }) => {
                 return (
                   <motion.div
                     key={link.path}
-                    initial={{ opacity: 0, y: 28 }}
+                    initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.25 + i * 0.06, duration: 0.45, ease: 'easeOut' }}
+                    transition={{ delay: 0.08 + i * 0.05, duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                   >
                     <Link
                       to={link.path}
@@ -393,7 +399,7 @@ const MobileNav = () => {
 
   return (
     <>
-      <MobileTopBar onMenu={() => setMenuOpen(true)} />
+      <MobileTopBar menuOpen={menuOpen} onMenu={() => setMenuOpen(true)} />
       <MobileBottomNav />
       <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
     </>

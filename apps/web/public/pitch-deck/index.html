@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#28282F">
+<title>Pitch · DOMAKEA × Cámara de Comercio de Bogotá</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font-family:'DM Sans',system-ui,sans-serif}
+body{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+#glow{position:fixed;inset:0;pointer-events:none;background:radial-gradient(500px circle at var(--x,50%) var(--y,50%),rgba(255,195,15,.13),transparent 60%);z-index:1}
+.blob{position:fixed;border-radius:50%;filter:blur(70px);opacity:.35;z-index:0;animation:fl 14s ease-in-out infinite alternate}
+.b1{width:40vw;height:40vw;background:var(--a);left:-10vw;top:-12vw}
+.b2{width:34vw;height:34vw;background:#3b3b4a;right:-8vw;bottom:-10vw;animation-delay:-6s}
+@keyframes fl{to{transform:translate(6vw,5vh) scale(1.2)}}
+.s{position:fixed;inset:0;visibility:hidden;z-index:2;display:flex;flex-direction:column;justify-content:center;padding:14vh 7vw 10vh;overflow:hidden}
+.s.active,.s.out{visibility:visible}.s.active{z-index:4}.s.out{z-index:3;animation:out .9s var(--ease) forwards}
+@keyframes out{to{opacity:0;transform:scale(.94)}}
+.in-wipe{animation:wipe 1s var(--ease)}@keyframes wipe{from{clip-path:circle(0 at 50% 50%)}to{clip-path:circle(150% at 50% 50%)}}
+.in-up{animation:up 1s var(--ease)}@keyframes up{from{transform:translateY(100%)}to{transform:none}}
+.in-zoom{animation:zoom 1s var(--ease)}@keyframes zoom{from{transform:scale(.7);opacity:0}to{transform:none;opacity:1}}
+.in-split{animation:split 1s var(--ease)}@keyframes split{from{clip-path:inset(50% 0)}to{clip-path:inset(0)}}
+.in-rot{animation:rot 1.1s var(--ease)}@keyframes rot{from{transform:perspective(1200px) rotateY(-80deg) translateX(30%);opacity:0}to{transform:none;opacity:1}}
+.s:not(.hero){background:var(--bg)}
+.a{opacity:0;transform:translateY(34px);transition:opacity .8s,transform .8s var(--ease)}
+.s.active .a{opacity:1;transform:none;transition-delay:calc(.55s + var(--i,0)*.13s)}
+h2,.big,.card b,.fr b,.st b{font-family:'Sora',sans-serif}
+h2{font-size:clamp(28px,4.4vw,64px);font-weight:800;line-height:1.05;letter-spacing:-.02em}
+h2 em,#hero em{font-style:normal;color:var(--a)}
+.kick{font-family:'JetBrains Mono',monospace;color:var(--a);font-size:clamp(12px,1.1vw,16px);letter-spacing:.2em;text-transform:uppercase;margin-bottom:2vh}
+/* hero compartido */
+#hero{font-family:'Bricolage Grotesque',sans-serif;position:fixed;z-index:6;pointer-events:none;font-weight:800;letter-spacing:-.03em;line-height:1;width:max-content;max-width:84vw;
+transition:left 1.1s var(--ease),top 1.1s var(--ease),transform 1.1s var(--ease),font-size 1.1s var(--ease),opacity .5s}
+#hero .w{display:inline-block;opacity:0;transform:translateY(60%);animation:wd .9s var(--ease) forwards;animation-delay:calc(var(--k)*.12s + .3s)}
+@keyframes wd{to{opacity:1;transform:none}}
+.h0,.h6{left:50%;top:50%;transform:translate(-50%,-50%);font-size:clamp(40px,8.6vw,150px);text-align:center}
+.h1,.hx{left:7vw;top:calc(6vh + env(safe-area-inset-top,0px));transform:none;font-size:clamp(14px,1.7vw,26px);text-align:left;font-weight:700}
+.hx{opacity:0}
+.sky{position:absolute;left:0;right:0;bottom:0;height:34vh;opacity:.9}
+.sky path{fill:#1f1f26;stroke:var(--a);stroke-width:1.5;stroke-dasharray:2600;stroke-dashoffset:2600;transition:stroke-dashoffset 3s ease .6s}
+.s.active .sky path{stroke-dashoffset:0}
+.hint{font-family:'JetBrains Mono',monospace;letter-spacing:.14em;text-transform:uppercase;position:absolute;bottom:4vh;left:0;right:0;text-align:center;color:var(--mut);font-size:14px;animation:pl 2s infinite}
+@keyframes pl{50%{opacity:.3}}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2vw;margin-top:6vh}
+.card{border:1px solid #3a3a44;border-radius:20px;padding:2.4vw;background:#28282F;transition:transform .4s,border-color .4s}
+.card:hover{transform:translateY(-10px);border-color:var(--a)}
+.card b{display:block;font-size:clamp(20px,2.4vw,36px);margin:1.6vh 0 1vh}
+.card p{color:var(--mut);font-size:clamp(13px,1.2vw,18px);line-height:1.4}
+.dot{width:14px;height:14px;border-radius:50%;background:var(--a);box-shadow:0 0 0 0 var(--a);animation:pu 2s infinite}
+.card:nth-child(2) .dot{background:var(--b)}.card:nth-child(3) .dot{background:var(--c)}
+@keyframes pu{70%{box-shadow:0 0 0 16px transparent}}
+.nums{display:flex;gap:4vw;margin-top:7vh;flex-wrap:wrap}
+.nums div{flex:1;min-width:200px}
+.big{font-size:clamp(48px,9vw,140px);font-weight:800;letter-spacing:-.04em;line-height:1}
+.nums div:nth-child(1) .big{color:var(--a)}.nums div:nth-child(2) .big{color:var(--b)}.nums div:nth-child(3) .big{color:var(--c)}
+.nums span{color:var(--mut);font-size:clamp(13px,1.3vw,20px)}
+.chart{width:100%;height:42vh;margin-top:3vh}
+.chart .ln{fill:none;stroke:var(--a);stroke-width:5;stroke-linecap:round;stroke-dasharray:1400;stroke-dashoffset:1400;transition:stroke-dashoffset 2.4s var(--ease) .9s}
+.s.active .chart .ln{stroke-dashoffset:0}
+.chart rect{fill:var(--b);opacity:.55;transform-box:fill-box;transform-origin:bottom;transform:scaleY(0);transition:transform .9s var(--ease)}
+.s.active .chart rect{transform:scaleY(1);transition-delay:calc(.6s + var(--i)*.1s)}
+.tl{position:relative;display:flex;justify-content:space-between;margin-top:9vh}
+.tl:before{content:"";position:absolute;left:0;top:11px;height:3px;width:0;background:linear-gradient(90deg,var(--a),var(--b),var(--c));transition:width 2s var(--ease) .8s}
+.s.active .tl:before{width:100%}
+.st{position:relative;width:22%;padding-top:42px}
+.st:before{content:"";position:absolute;top:0;left:0;width:26px;height:26px;border-radius:50%;background:var(--bg);border:4px solid var(--a)}
+.st b{font-size:clamp(18px,2vw,30px)}.st p{color:var(--mut);margin-top:1vh;font-size:clamp(12px,1.15vw,17px)}
+.flip{perspective:900px;height:34vh;cursor:pointer}
+.fi{position:relative;width:100%;height:100%;transition:transform .8s var(--ease);transform-style:preserve-3d}
+.flip:hover .fi,.flip.on .fi{transform:rotateY(180deg)}
+.fi>div{position:absolute;inset:0;backface-visibility:hidden;border-radius:20px;padding:2vw;display:flex;flex-direction:column;justify-content:center;font-size:clamp(14px,1.3vw,20px)}
+.fr{color:#fff;background-size:cover;background-position:center;border:1px solid #3a3a44}.fr b{font-size:clamp(22px,2.6vw,40px)}
+.bk{transform:rotateY(180deg);color:#28282F;font-weight:700}
+.flip:nth-child(1) .bk{background:var(--a)}.flip:nth-child(2) .bk{background:#fff}.flip:nth-child(3) .bk{background:#28282F;color:#fff;border:2px solid var(--a)}
+.cta{display:inline-block;margin-top:46vh;padding:16px 34px;border-radius:99px;background:var(--a);color:#28282F;font-weight:800;font-size:18px}
+#bar{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--a),var(--b),var(--c));width:0;z-index:20;transition:width .8s var(--ease)}
+#nav{position:fixed;right:2vw;top:50%;transform:translateY(-50%);z-index:30;display:flex;flex-direction:column;gap:10px;pointer-events:auto}
+#nav button{
+  position:relative;width:14px;height:14px;border-radius:50%;border:2px solid var(--mut);
+  background:none;cursor:pointer;padding:0;transition:transform .25s,border-color .25s,background .25s;
+}
+#nav button::before{content:"";position:absolute;inset:-12px;border-radius:50%}
+#nav button:hover{border-color:var(--a);transform:scale(1.15)}
+#nav button.on{background:var(--a);border-color:var(--a);transform:scale(1.45)}
+#nav button.on:hover{transform:scale(1.45)}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.tl{flex-direction:column;gap:3vh}.tl:before{display:none}.st{width:100%}.s{padding:12vh 6vw 8vh;overflow:auto}.flip{height:20vh}}
+.bgimg{position:absolute;inset:0;background-size:cover;background-position:center;z-index:-1;will-change:transform}
+.s.active .bgimg:not(.kb-auto){animation:kb 14s ease-out forwards}
+@keyframes kb{from{transform:scale(1.14)}to{transform:scale(1)}}
+.s.active .bgimg.kb-auto{animation:kenburns-cycle 10s ease-in-out infinite}
+@keyframes kenburns-cycle{
+  0%,100%{transform:scale(1) translate(0,0)}
+  50%{transform:scale(1.14) translate(-1.2%,-0.8%)}
+}
+.source-mark{
+  position:absolute;right:7vw;bottom:calc(3.2vh + env(safe-area-inset-bottom,0px));z-index:5;
+  display:flex;align-items:center;justify-content:flex-end;
+  max-width:min(40vw,340px);pointer-events:none;padding:0;background:none;border:none;
+}
+.source-mark img{
+  display:block;height:clamp(34px,5vh,52px);width:auto;max-width:min(38vw,320px);
+  object-fit:contain;object-position:right center;
+  filter:drop-shadow(0 6px 18px rgba(0,0,0,.5));
+}
+#logo{position:fixed;right:5vw;top:calc(5vh + env(safe-area-inset-top,0px));height:clamp(14px,1.7vw,26px);z-index:20}
+.card{backdrop-filter:blur(14px);background:rgba(40,40,47,.7)}
+
+/* CIERRE: zoom 1.5 = 150%. --cierre-photo-shift-y sube la imagen (más negativo = más arriba). */
+:root{
+  --bg:#121212;--s:#28282F;--ink:#fff;--mut:#A6A6A6;--a:#FFC30F;--b:#8A8A99;--c:#fff;--ease:cubic-bezier(.22,1,.36,1);
+  --cierre-photo-zoom:1.5;
+  --cierre-photo-zoom-peak:1.54;
+  --cierre-photo-shift-y:-7vh;
+}
+.s.has-cite{padding-bottom:12vh}
+.cite{position:absolute;left:7vw;bottom:calc(3vh + env(safe-area-inset-bottom,0px));font-family:'JetBrains Mono',monospace;font-size:clamp(9px,.85vw,11px);letter-spacing:.06em;color:var(--mut);opacity:.88;z-index:5;max-width:72vw}
+.lead{color:var(--mut);font-size:clamp(15px,1.45vw,21px);max-width:54em;margin-top:2.2vh;line-height:1.45}
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.8vw;margin-top:5vh}
+.stat-box{border:1px solid #3a3a44;border-radius:18px;padding:2.2vh 1.6vw;background:rgba(40,40,47,.78);backdrop-filter:blur(12px)}
+.stat-box .label{display:block;color:var(--mut);font-size:clamp(12px,1.1vw,17px);margin-top:1.4vh;line-height:1.35}
+.stat-figure{display:flex;align-items:baseline;gap:.15em;line-height:.95}
+.stat-num{font-family:'Sora',sans-serif;font-size:clamp(52px,9.2vw,128px);font-weight:800;letter-spacing:-.04em}
+.stat-sym{font-family:'Sora',sans-serif;font-size:clamp(30px,5vw,72px);font-weight:800;opacity:.92;transform:translateY(.06em)}
+.stat-box.accent .stat-num,.stat-box.accent .stat-sym{color:var(--a)}
+.stat-box.alt .stat-num,.stat-box.alt .stat-sym{color:var(--b)}
+.stat-figure.plain .stat-sym{font-size:clamp(22px,3.2vw,44px);color:var(--mut);font-weight:600}
+.quote-wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:4vw;align-items:center;margin-top:3vh}
+@media(max-width:900px){.quote-wrap{grid-template-columns:1fr}.quote-wrap img{max-height:28vh}}
+.quote-wrap blockquote{font-family:'Sora',sans-serif;font-size:clamp(20px,2.8vw,40px);line-height:1.15;font-weight:700}
+.quote-wrap blockquote cite{display:block;margin-top:2.4vh;font-family:'JetBrains Mono',monospace;font-size:clamp(11px,1vw,14px);color:var(--a);font-style:normal;letter-spacing:.12em;text-transform:uppercase}
+.quote-wrap img{width:100%;max-height:48vh;object-fit:cover;border-radius:20px;border:1px solid #3a3a44}
+.quote-wrap img.portrait-drucker{object-fit:cover;object-position:center 15%;max-height:54vh}
+.story-wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:4vw;align-items:center;margin-top:2vh}
+@media(max-width:900px){.story-wrap{grid-template-columns:1fr}}
+.story-wrap img{width:100%;max-height:42vh;object-fit:cover;object-position:center 35%;border-radius:20px;border:1px solid #3a3a44}
+.brand-lockup{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(36px,6.5vw,108px);font-weight:800;letter-spacing:-.03em;line-height:1.05;max-width:16em;margin-top:2vh}
+.brand-lockup em{font-style:normal;color:var(--a)}
+.s.cierre-slide{justify-content:center;padding-top:8vh;padding-bottom:8vh}
+.cierre-layout{position:relative;width:100%;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(3vh,4.5vw,5.5vh)}
+.cierre-head{text-align:center;max-width:min(44em,92vw);padding:0 4vw}
+.cierre-head .kick{margin-bottom:1vh}
+.cierre-tagline{font-family:'Sora',sans-serif;font-size:clamp(16px,1.65vw,24px);font-weight:700;line-height:1.28;margin:0}
+.cierre-tagline em{font-style:normal;color:var(--a)}
+.cierre-stage{
+  width:100%;max-width:min(1240px,96vw);
+  display:grid;grid-template-columns:minmax(140px,1fr) minmax(260px,40vw) minmax(140px,1fr);
+  align-items:center;gap:clamp(16px,3vw,40px);
+  min-height:clamp(300px,52vh,560px);
+  flex:1;
+}
+.cierre-hero-img{
+  position:relative;height:clamp(280px,50vh,540px);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+  mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.35) 12%,#000 28%,#000 72%,rgba(0,0,0,.35) 88%,transparent 100%);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.35) 12%,#000 28%,#000 72%,rgba(0,0,0,.35) 88%,transparent 100%);
+}
+.cierre-hero-img::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,#121212 0%,transparent 14%,transparent 86%,#121212 100%);
+  opacity:.55;
+}
+.cierre-photo-center{
+  position:relative;z-index:1;
+  height:96%;width:auto;max-width:120%;
+  object-fit:cover;object-position:center 38%;
+  transform:translateY(var(--cierre-photo-shift-y)) scale(var(--cierre-photo-zoom));
+  transform-origin:center center;
+  filter:drop-shadow(0 12px 40px rgba(0,0,0,.45));
+}
+.s.active .cierre-photo-center{animation:cierre-zoom 11s ease-in-out infinite}
+@keyframes cierre-zoom{
+  0%,100%{transform:translateY(var(--cierre-photo-shift-y)) scale(var(--cierre-photo-zoom))}
+  50%{transform:translateY(calc(var(--cierre-photo-shift-y) - 1vh)) scale(var(--cierre-photo-zoom-peak))}
+}
+.cierre-qr{display:flex;flex-direction:column;align-items:center;text-align:center;gap:1.1vh;padding:1vh 0}
+.cierre-qr img{
+  width:clamp(132px,14vw,184px);height:auto;aspect-ratio:1;
+  border-radius:16px;border:3px solid var(--a);background:#fff;padding:9px;
+  box-shadow:0 8px 28px rgba(0,0,0,.35);
+}
+.cierre-qr b{font-family:'Sora',sans-serif;font-size:clamp(15px,1.45vw,20px);color:var(--ink);line-height:1.25}
+.cierre-qr span,.cierre-qr-label{font-family:'JetBrains Mono',monospace;font-size:clamp(10px,.9vw,12px);color:var(--mut);letter-spacing:.04em;text-decoration:none;transition:color .2s}
+.cierre-qr-label:hover{color:var(--a)}
+.cierre-qr-link{display:block;line-height:0;cursor:pointer}
+.cierre-qr--left{align-items:center;padding-right:.8vw}
+.cierre-qr--right{align-items:center;padding-left:.8vw}
+@media(max-width:820px){
+  .cierre-stage{grid-template-columns:1fr;justify-items:center;min-height:auto}
+  .cierre-hero-img{order:-1;height:clamp(200px,36vh,320px);width:100%;max-width:420px}
+  .cierre-qr--left,.cierre-qr--right{align-items:center;padding:0}
+  .cierre-qr-row-mobile{display:flex;gap:6vw;justify-content:center;width:100%}
+}
+.svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.4vw;margin-top:4vh}
+@media(max-width:800px){.svc-grid{grid-template-columns:1fr}}
+.svc{padding:1.5vw 1.4vw;border-radius:16px;border:1px solid #3a3a44;background:rgba(40,40,47,.72)}
+.svc .tag{font-family:'JetBrains Mono',monospace;color:var(--a);font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.svc strong{display:block;font-family:'Sora',sans-serif;font-size:clamp(15px,1.7vw,22px);margin:.6vh 0 .4vh}
+.svc p{color:var(--mut);font-size:clamp(11px,1.05vw,15px);line-height:1.35}
+.chain{display:grid;grid-template-columns:1.1fr .9fr;gap:3vw;align-items:center;margin-top:3vh}
+@media(max-width:900px){.chain{grid-template-columns:1fr}}
+.chain img{width:100%;border-radius:18px;border:1px solid #3a3a44;object-fit:cover;max-height:42vh}
+.chain .pair{display:flex;flex-direction:column;gap:2vh}
+.chain .pair div{padding:1.6vw;border-radius:14px;border:1px solid #3a3a44;background:rgba(40,40,47,.75)}
+.chain .pair b{font-family:'Sora',sans-serif;font-size:clamp(17px,1.8vw,24px);color:var(--a)}
+.chain .pair p{color:var(--mut);margin-top:.8vh;font-size:clamp(13px,1.15vw,17px)}
+.refs-slide{padding-top:12vh;padding-bottom:6vh}
+.refs{margin-top:2vh;padding-right:2vw;max-height:62vh;overflow:auto;font-size:clamp(11px,.95vw,13px);color:var(--mut);line-height:1.65}
+.refs h3{font-family:'JetBrains Mono',monospace;color:var(--a);font-size:12px;letter-spacing:.16em;text-transform:uppercase;margin:2vh 0 .8vh}
+.refs a{color:#ddd;text-decoration:none;border-bottom:1px solid #444}
+.refs a:hover{color:var(--a);border-color:var(--a)}
+.refs li{margin-left:1.2em;margin-bottom:.5em}
+.tagline{font-family:'Sora',sans-serif;font-size:clamp(20px,2.6vw,38px);font-weight:700;line-height:1.2;max-width:20em;margin-top:4vh}
+.tagline em{font-style:normal;color:var(--a)}
+.dane-aside{margin-top:3.2vh;padding-top:2.2vh;border-top:1px solid #3a3a44;max-width:36em}
+.kick--sm{font-size:clamp(9px,.72vw,11px);letter-spacing:.16em;margin-bottom:.6vh;opacity:.8}
+.dane-lead{font-family:'Sora',sans-serif;font-size:clamp(12px,1.05vw,16px);font-weight:600;line-height:1.32;color:var(--mut)}
+.dane-lead em{font-style:normal;color:var(--ink);opacity:.88;font-weight:700}
+</style>
+</head>
+<body>
+
+<div id="bar"></div><div class="blob b1"></div><div class="blob b2"></div><div id="glow"></div>
+<div id="hero" class="h0"></div><div id="nav"></div>
+<img id="logo" alt="DOMAKEA" src="imagenes/logo.png">
+
+<section class="s hero" data-t="in-zoom">
+  <div class="bgimg" style="background-image:linear-gradient(#12121299,#121212eb),url('imagenes/nosotros_partners.png');background-position:center 30%"></div>
+  <svg class="sky" viewBox="0 0 1200 200" preserveAspectRatio="none"><path d="M0 200V150L80 150 80 110 140 110 140 140 220 140 220 70 270 70 270 130 340 130 340 90 380 90 380 140 470 140 520 60 570 140 640 140 640 100 720 100 720 150 800 150 800 40 850 40 850 130 930 130 930 90 1010 90 1010 140 1090 140 1090 105 1200 105V200Z"/></svg>
+  <div class="hint">DOMAKEA · Cámara de Comercio de Bogotá · →</div>
+</section>
+
+<section class="s" data-t="in-wipe">
+  <div class="bgimg kb-auto" style="background-image:linear-gradient(#121212b8,#121212f2),url('imagenes/historia.jpg')"></div>
+  <div class="kick a" style="--i:0">El problema</div>
+  <h2 class="a" style="--i:1">Una pyme con clientes, producto y esfuerzo… pero sin <em>claridad</em> en los datos y actualización de su modelo de negocio.</h2>
+  <p class="lead a" style="--i:2">No sabe con precisión dónde pierde rentabilidad, qué clientes valen más o cuánto puede invertir. No es falta de ganas: es falta de capacidades especializadas al alcance de su tamaño.</p>
+</section>
+
+<section class="s has-cite" data-t="in-up">
+  <div class="kick a" style="--i:0">Transformación digital · Colombia</div>
+  <h2 class="a" style="--i:1">Muchas MiPymes aún no han empezado a <em>transformarse</em>.</h2>
+  <div class="stat-row a" style="--i:2">
+    <div class="stat-box accent"><div class="stat-figure"><span class="stat-num" data-n="55" data-d="0">0</span><span class="stat-sym">%</span></div><span class="label">no ha iniciado inversiones en transformación digital</span></div>
+  </div>
+  <p class="lead a" style="--i:3">Sin digitalización, es más difícil actualizar el modelo de negocio y responder al mercado con velocidad.</p>
+  <div class="cite">CCCE · ACOPI Encuesta de Desempeño 2023</div>
+</section>
+
+<section class="s has-cite" data-t="in-wipe">
+  <div class="kick a" style="--i:0">Gestión de datos comerciales</div>
+  <h2 class="a" style="--i:1">Pocas pymes deciden con <em>datos</em>, muchas sin sistema.</h2>
+  <div class="stat-row a" style="--i:2">
+    <div class="stat-box accent"><div class="stat-figure"><span class="stat-num" data-n="60" data-d="0">0</span><span class="stat-sym">%</span></div><span class="label">sin sistema estructurado para recolectar o analizar datos comerciales</span></div>
+    <div class="stat-box alt"><div class="stat-figure"><span class="stat-num" data-n="20" data-d="0">0</span><span class="stat-sym">%</span></div><span class="label">usa datos para decisiones estratégicas (2 de cada 10)</span></div>
+  </div>
+  <div class="dane-aside a" style="--i:3">
+    <div class="kick kick--sm">DANE · micronegocios</div>
+    <p class="dane-lead">La información existe, pero <em>no está lista</em> para decidir.</p>
+  </div>
+  <div class="cite">La Nota Económica 2025 · análisis HeatMaps · DANE EMICRON 2024</div>
+  <div class="source-mark"><img src="imagenes/logos/processed/dane.png" alt="DANE"></div>
+</section>
+
+<section class="s" data-t="in-split">
+  <div class="kick a" style="--i:0">Por qué importan los datos</div>
+  <div class="quote-wrap a" style="--i:1">
+    <blockquote>«Lo que no se define, no se puede medir. Lo que no se mide, no se puede mejorar.»<cite>Peter Drucker</cite></blockquote>
+    <img class="portrait-drucker" src="imagenes/peter-drucker.jpg" alt="Peter Drucker">
+  </div>
+</section>
+
+<section class="s has-cite" data-t="in-up">
+  <div class="kick a" style="--i:0">Colombia · tejido empresarial</div>
+  <h2 class="a" style="--i:1">Casi <em>toda</em> la economía formal son MiPymes.</h2>
+  <div class="stat-row a" style="--i:2">
+    <div class="stat-box accent"><div class="stat-figure"><span class="stat-num" data-n="99.5" data-d="1">0</span><span class="stat-sym">%</span></div><span class="label">de las firmas registradas son MiPymes (cierre 2024)</span></div>
+    <div class="stat-box alt"><div class="stat-figure"><span class="stat-num" data-n="67" data-d="0">0</span><span class="stat-sym">%</span></div><span class="label">del empleo del país sostenido por MiPymes</span></div>
+  </div>
+  <div class="cite">Confecámaras 2024</div>
+  <div class="source-mark"><img src="imagenes/logos/processed/confecamaras.png" alt="Confecámaras"></div>
+</section>
+
+<section class="s has-cite" data-t="in-up">
+  <div class="kick a" style="--i:0">MiPymes en RUES · 4.100 empresas</div>
+  <h2 class="a" style="--i:1">La analítica avanzada sigue siendo <em>minoría</em>.</h2>
+  <div class="stat-row a" style="--i:2">
+    <div class="stat-box accent"><div class="stat-figure"><span class="stat-num" data-n="7" data-d="0">0</span><span class="stat-sym">%</span></div><span class="label">usa analítica</span></div>
+    <div class="stat-box alt"><div class="stat-figure"><span class="stat-num" data-n="4" data-d="0">0</span><span class="stat-sym">%</span></div><span class="label">usa Big Data</span></div>
+    <div class="stat-box"><div class="stat-figure plain"><span class="stat-num" data-n="63" data-d="0">0</span><span class="stat-sym">/</span><span class="stat-num" data-n="42" data-d="0">0</span></div><span class="label">medianas vs microempresas en transformación digital avanzada</span></div>
+  </div>
+  <div class="cite">CIPE — Centro Nacional de Consultoría 2024</div>
+  <div class="source-mark"><img src="imagenes/logos/processed/cnc.png" alt="Centro Nacional de Consultoría"></div>
+</section>
+
+<section class="s has-cite" data-t="in-split">
+  <div class="kick a" style="--i:0">Decisiones empresariales</div>
+  <h2 class="a" style="--i:1">Los números del negocio no se toman a la <em>ligera</em>.</h2>
+  <p class="lead a" style="--i:2">Muchos se guían por intuición y por lo que dice el corazón. Eso puede hacer que pierdas dinero sin tener claridad de qué pasó. La prueba y error no puede ser una opción permanente.</p>
+  <p class="lead a" style="--i:3;color:var(--a);font-weight:600">Solo 2 de cada 10 pymes en Colombia usan datos para decisiones estratégicas.</p>
+  <div class="cite">La Nota Económica 2025</div>
+</section>
+
+<section class="s has-cite" data-t="in-rot">
+  <div class="kick a" style="--i:0">Urgencia</div>
+  <h2 class="a" style="--i:1">Escalar no es solo <em>vender más</em>.</h2>
+  <div class="stat-row a" style="--i:2">
+    <div class="stat-box accent"><div class="stat-figure"><span class="stat-num" data-n="32" data-d="0">0</span><span class="stat-sym">%</span></div><span class="label">de empresas creadas en 2019 seguía activa en 2024</span></div>
+  </div>
+  <p class="lead a" style="--i:3">Mejor gestión, mejor información, mejores decisiones — no más campañas sin retorno medido.</p>
+  <div class="cite">Confecámaras 2024</div>
+  <div class="source-mark"><img src="imagenes/logos/processed/confecamaras.png" alt="Confecámaras"></div>
+</section>
+
+<section class="s" data-t="in-zoom">
+  <div class="kick a" style="--i:0">Nuestra historia</div>
+  <div class="story-wrap a" style="--i:1">
+    <div>
+      <h2 style="margin-top:0">A los 16 empezamos con <em>marketing</em>. Hoy integramos datos, inteligencia comercial y finanzas.</h2>
+      <p class="lead">Entendimos que el problema no era solo visibilidad: era crecer sin información, con golpes, pérdidas de dinero, sistemas poco prácticos y desorganizados —sin un crecimiento óptimo y con dificultad para adaptarse al mercado.</p>
+    </div>
+    <img src="imagenes/historia-nacimiento.jpg" alt="Origen de DOMAKEA">
+  </div>
+</section>
+
+<section class="s" data-t="in-wipe">
+  <div class="kick a" style="--i:0">La visión</div>
+  <h2 class="a" style="--i:1">¿Por qué el proceso de una pyme debería ser lento e insostenible por su <em>tamaño</em>?</h2>
+  <p class="lead a" style="--i:2"><strong style="color:var(--ink);font-weight:600">DOMAKEA</strong> integra ciencia de datos, inteligencia comercial, tecnología, marketing y finanzas para transformar cómo las empresas entienden y gestionan su negocio.</p>
+</section>
+
+<section class="s" data-t="in-rot">
+  <div class="kick a" style="--i:0">Líneas de servicio</div>
+  <h2 class="a" style="--i:1">Un proceso integral, inspirado en <em>CRISP-DM</em>.</h2>
+  <div class="svc-grid a" style="--i:2">
+    <div class="svc"><span class="tag">01</span><strong>DomaAdvisory</strong><p>Diagnóstico comercial, operativo y financiero. Fugas e hoja de ruta priorizada.</p></div>
+    <div class="svc"><span class="tag">02</span><strong>DomaFinance</strong><p>Viabilidad, costeo, proyecciones y go/no-go con modelos vivos.</p></div>
+    <div class="svc"><span class="tag">03</span><strong>DomaField</strong><p>Captura de datos confiable desde la operación.</p></div>
+    <div class="svc"><span class="tag">04</span><strong>DomaCore</strong><p>CRM, bases de datos centralizadas y tableros operativos.</p></div>
+    <div class="svc"><span class="tag">05</span><strong>DomaAnalytics</strong><p>Analítica y ML cuando los datos lo permiten.</p></div>
+    <div class="svc"><span class="tag">06</span><strong>DomaGrowth</strong><p>ROI publicitario, conversión, captación y retención.</p></div>
+  </div>
+</section>
+
+<section class="s" data-t="in-wipe">
+  <div class="kick a" style="--i:0">De atrás hacia adelante</div>
+  <h2 class="a" style="--i:1">No tenemos nada definido al <em>100%</em>.</h2>
+  <p class="lead a" style="--i:2">Adaptamos todo a las necesidades de la empresa y a su presupuesto. El alcance se diseña contigo, no en un paquete estándar.</p>
+</section>
+
+<section class="s" data-t="in-up">
+  <div class="kick a" style="--i:0">Nuestro compromiso</div>
+  <h2 class="a" style="--i:1">Enfoque basado en <em>resultados</em>.</h2>
+  <p class="lead a" style="--i:2">Como emprendedores sabemos que, cuando no hay presupuesto, hacer el esfuerzo de contratar un servicio externo que no genera ningún resultado es una pérdida gigante para la empresa.</p>
+  <p class="lead a" style="--i:3">Por eso confiamos en lo que somos capaces de hacer por ti —y por eso nuestro enfoque es basado en resultados.</p>
+</section>
+
+<section class="s" data-t="in-split">
+  <div class="kick a" style="--i:0">Propuesta</div>
+  <h2 class="a" style="--i:1">Advisory encuentra la fuga. El resto de servicios <em>orienta</em> la decisión.</h2>
+  <div class="chain a" style="--i:2">
+    <div class="pair">
+      <div><b>DomaAdvisory</b><p>Encuentra la fuga y prioriza por impacto.</p></div>
+      <div><b>Field · Core · Analytics · Growth · Finance</b><p>Dan el contexto, los números y la acción para decidir y crecer.</p></div>
+      <p class="lead" style="margin-top:0">Mejoramos lo que la empresa busca: claridad, orden comercial y decisiones que se sostienen en datos.</p>
+      <p class="lead" style="margin-top:0;opacity:.85">Diagnosticamos → modelamos → recolectamos → organizamos → analizamos → convertimos en crecimiento.</p>
+    </div>
+    <img src="imagenes/nosotros_partners.png" alt="Equipo DOMAKEA">
+  </div>
+</section>
+
+<section class="s hero" data-t="in-zoom">
+  <div class="kick a" style="--i:0">DOMAKEA</div>
+  <p class="brand-lockup a" style="--i:1">El arte de la <em>estrategia</em>.</p>
+</section>
+
+<section class="s cierre-slide" data-t="in-zoom">
+  <div class="cierre-layout">
+    <header class="cierre-head a" style="--i:0">
+      <div class="kick">Cierre</div>
+      <p class="cierre-tagline">Transformamos <em>información</em> en decisiones y decisiones en oportunidades de crecimiento.</p>
+    </header>
+    <div class="cierre-stage a" style="--i:1">
+      <div class="cierre-qr cierre-qr--left">
+        <a href="https://domakea.com/" target="_top" rel="noopener" class="cierre-qr-link">
+          <img id="qr-web" width="184" height="184" alt="QR — domakea.com" src="">
+        </a>
+        <b>¿Te interesó? Conoce más</b>
+        <a href="https://domakea.com/" target="_top" rel="noopener" class="cierre-qr-label">domakea.com</a>
+      </div>
+      <div class="cierre-hero-img">
+        <img class="cierre-photo-center" src="imagenes/nosotros2.png" alt="Equipo DOMAKEA">
+      </div>
+      <div class="cierre-qr cierre-qr--right">
+        <a href="https://domakea.com/contacto" target="_top" rel="noopener" class="cierre-qr-link">
+          <img id="qr-contact" width="184" height="184" alt="QR — contacto" src="">
+        </a>
+        <b>Contáctanos</b>
+        <a href="/contacto" target="_top" rel="noopener" class="cierre-qr-label">domakea.com/contacto</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s refs-slide" data-t="in-up">
+  <div class="kick a" style="--i:0">Referencias</div>
+  <h2 class="a" style="--i:1">Fuentes de <em>cifras</em> citadas · detalle</h2>
+  <div class="refs a" style="--i:2">
+    <h3>Confecámaras 2024</h3>
+    <ul>
+      <li><a href="https://www.colombiaencifras.com/confecamaras-entrega-informe-sobre-gestion-empresarial-en-colombia/" target="_blank" rel="noopener">https://www.colombiaencifras.com/confecamaras-entrega-informe-sobre-gestion-empresarial-en-colombia/</a></li>
+    </ul>
+    <h3>DANE EMICRON 2024</h3>
+    <ul>
+      <li><a href="https://www.dane.gov.co/files/operaciones/EMICRON/bol-EMICRON-2024.pdf" target="_blank" rel="noopener">https://www.dane.gov.co/files/operaciones/EMICRON/bol-EMICRON-2024.pdf</a></li>
+    </ul>
+    <h3>CIPE — Centro Nacional de Consultoría 2024</h3>
+    <ul>
+      <li><a href="https://www.cipe.org/wp-content/uploads/2024/05/Caracterizacion_Mi_pymes_en_Colombia_Total_Version-Resumida_1.pdf" target="_blank" rel="noopener">https://www.cipe.org/wp-content/uploads/2024/05/Caracterizacion_Mi_pymes_en_Colombia_Total_Version-Resumida_1.pdf</a></li>
+    </ul>
+    <h3>CCCE · ACOPI 2023 (transformación digital)</h3>
+    <ul>
+      <li><a href="https://ccce.org.co/noticias/hacia-la-transformacion-digital-de-las-mipymes-en-colombia/" target="_blank" rel="noopener">https://ccce.org.co/noticias/hacia-la-transformacion-digital-de-las-mipymes-en-colombia/</a></li>
+    </ul>
+    <h3>La Nota Económica 2025 (datos comerciales)</h3>
+    <ul>
+      <li><a href="https://lanotaeconomica.com.co/movidas-empresarial/solo-2-de-cada-10-pymes-en-colombia-utiliza-datos-para-tomar-decisiones-estrategicas/" target="_blank" rel="noopener">https://lanotaeconomica.com.co/movidas-empresarial/solo-2-de-cada-10-pymes-en-colombia-utiliza-datos-para-tomar-decisiones-estrategicas/</a></li>
+    </ul>
+    <p style="margin-top:3vh;color:#666;font-size:11px">Peter Drucker: cita atribuida de uso público en gestión empresarial; verificar edición preferida para material impreso.</p>
+  </div>
+</section>
+
+<script>
+const P=["DOMAKEA","información en","decisiones."],S=[...document.querySelectorAll('.s')],H=document.getElementById('hero'),N=document.getElementById('nav'),B=document.getElementById('bar');
+let k=0;H.innerHTML=P.map((l,i)=>l.split(' ').map(w=>`<span class="w" style="--k:${k++}">${i===1?'<em>'+w+'</em>':w}</span>`).join(' ')).join('<br>');
+S.forEach((_,i)=>{
+  const b=document.createElement('button');
+  b.type='button';
+  b.setAttribute('aria-label','Ir a diapositiva '+(i+1));
+  b.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();go(i,{jump:true});});
+  N.append(b);
+});
+let cur=-1,busy=false,transId=0;
+function count(s){s.querySelectorAll('[data-n]').forEach(e=>{const t=+e.dataset.n,d=+(e.dataset.d||0),t0=performance.now();
+(function f(n){const p=Math.min(1,(n-t0-700)/1600);const v=t*(p<0?0:1-Math.pow(1-p,3));
+e.textContent=d? v.toLocaleString('es-CO',{minimumFractionDigits:1,maximumFractionDigits:1}):Math.round(v).toLocaleString('es-CO');
+if(p<1)requestAnimationFrame(f)})(t0)})}
+function resetSlides(except){
+  S.forEach((sl,i)=>{
+    if(sl===except)return;
+    sl.classList.remove('active','out','in-wipe','in-up','in-zoom','in-split','in-rot');
+    sl.style.visibility='';
+  });
+}
+function go(n,opts={}){const jump=!!opts.jump;
+if(n<0||n>=S.length)return;
+if(n===cur&&!busy)return;
+if(busy&&!jump)return;
+if(busy&&jump){transId++;resetSlides(null);busy=false;}
+const o=cur>=0?S[cur]:null;const s=S[n];
+const id=++transId;
+busy=true;
+if(o&&o!==s){o.classList.remove('active');o.classList.add('out')}
+else if(o===s){resetSlides(s)}
+S.forEach(x=>x!==s&&x!==o&&x.classList.remove('in-wipe','in-up','in-zoom','in-split','in-rot'));
+s.classList.remove('in-wipe','in-up','in-zoom','in-split','in-rot');void s.offsetWidth;s.classList.add('active',s.dataset.t);
+H.className=n===0?'h0':n===1?'h1':'hx';
+H.style.opacity=(n===0||n===1)?'1':'0';
+cur=n;[...N.children].forEach((b,i)=>b.classList.toggle('on',i===n));B.style.width=(n+1)/S.length*100+'%';count(s);
+setTimeout(()=>{if(id!==transId)return;if(o&&o!==s)o.classList.remove('out');busy=false},1100)}
+const nx=()=>go(cur+1),pv=()=>go(cur-1);
+addEventListener('keydown',e=>{
+  if(e.key==='Escape'){e.preventDefault();try{window.parent.postMessage({type:'pitch-exit'},'*')}catch(_){}return;}
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))nx();
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))pv();
+});
+let wt=0;addEventListener('wheel',e=>{if(Date.now()-wt<1200)return;wt=Date.now();e.deltaY>0?nx():pv()});
+let tx=0;addEventListener('touchstart',e=>tx=e.touches[0].clientX);addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>50)d<0?nx():pv()});
+addEventListener('click',e=>{if(e.target.closest('#nav'))return;nx()});
+addEventListener('mousemove',e=>{document.documentElement.style.setProperty('--x',e.clientX+'px');document.documentElement.style.setProperty('--y',e.clientY+'px')});
+const QR_WEB='https://domakea.com/';
+const QR_CONTACT='https://domakea.com/contacto';
+const qrApi='https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=6&color=28282F&bgcolor=FFFFFF&data=';
+document.getElementById('qr-web').src=qrApi+encodeURIComponent(QR_WEB);
+document.getElementById('qr-contact').src=qrApi+encodeURIComponent(QR_CONTACT);
+go(0);
+</script>
+</body>
+</html>

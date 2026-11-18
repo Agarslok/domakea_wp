@@ -140,6 +140,68 @@ const defaultContent = {
       ],
     },
     {
+      id: 6,
+      category: 'DomaFinance | Consultoría financiera',
+      hook: 'Sabe si tu proyecto funciona antes de invertir.',
+      shortDescription:
+        'Evaluación financiera de proyectos, análisis de riesgos, sistemas de costeo, proyecciones y presupuestos para decidir con números claros.',
+      description:
+        'Modelamos la parte financiera de tu negocio: cuánto cuesta realmente operar, qué proyectos valen la inversión y qué pasa con tu caja si el escenario cambia. El entregable no es un informe de cifras: es un modelo financiero vivo, con cada supuesto documentado, cada escenario cuantificado en COP y una recomendación clara de go / no-go.',
+      totalPrice: '$1.200.000 — $2.800.000',
+      benefits: [
+        'Decisión de inversión respaldada por VPN, TIR y periodo de recuperación',
+        'Punto de equilibrio y márgenes reales por producto o servicio',
+        'Riesgos medidos con escenarios y análisis de sensibilidad',
+        'Costos claros para fijar precios sin adivinar',
+        'Proyecciones listas para presentar ante bancos, socios o inversionistas',
+        'Modelos en Excel que tu equipo puede usar y actualizar solo',
+        'Tableros de seguimiento conectables a DomaAnalytics',
+      ],
+      useCases: [
+        'Vas a abrir una sede, comprar maquinaria o lanzar una línea y no sabes si se paga sola',
+        'Vendes bien, pero no conoces el costo ni el margen real de cada producto',
+        'Necesitas proyecciones para solicitar un crédito o buscar un socio',
+        'No tienes presupuesto, o lo tienes y nunca se cumple',
+        'Hay un proyecto inmobiliario o una expansión en la mesa y falta saber si es viable',
+      ],
+      subservices: [
+        {
+          id: 1,
+          name: 'Evaluación financiera de proyectos',
+          description:
+            'Flujo de caja libre, VPN, TIR, WACC y periodo de recuperación para decidir si invertir.',
+        },
+        {
+          id: 2,
+          name: 'Estudio de viabilidad',
+          description:
+            'Análisis de mercado, técnico y financiero con punto de equilibrio y recomendación go / no-go.',
+        },
+        {
+          id: 3,
+          name: 'Análisis de riesgos financieros',
+          description:
+            'Escenarios, sensibilidades y riesgos de liquidez, crédito, tasa y tipo de cambio, con plan de mitigación.',
+        },
+        {
+          id: 4,
+          name: 'Sistemas de costeo',
+          description:
+            'Diseño e implementación de costeo por absorción, variable, ABC o por proyectos, con capacitación al equipo.',
+        },
+        {
+          id: 5,
+          name: 'Proyecciones financieras',
+          description: 'P&G, flujo de caja y balance proyectados a 12–60 meses con escenarios dinámicos.',
+        },
+        {
+          id: 6,
+          name: 'Presupuestos y seguimiento',
+          description: 'Presupuesto anual por área o proyecto, con tablero mensual de ejecución vs. real.',
+        },
+      ],
+    },
+    {
       id: 2,
       category: 'DomaField',
       hook: 'Recolectamos los datos.',
@@ -400,19 +462,22 @@ const defaultContent = {
       description: 'Transformo los datos en información útil para las empresas mediante programación, analítica y ciencia de datos, desarrollando soluciones que optimizan procesos y respaldan la toma de decisiones.',
       photo: '/ja.png',
       linkedin: 'https://www.linkedin.com/in/juan-triana-olarte-70b436222/',
-      github: 'https://github.com/juantrianaolarte',
+      github: 'https://github.com/Agarslok',
     },
   ],
   portfolio: [
     {
       id: 1,
-      title: 'Morans Capital Solutions',
-      client: 'Sector inmobiliario · Estrategia de captación y conversión',
-      description: 'A través de un análisis profundo de los canales de captación activos, identificamos oportunidades de mejora en la segmentación de prospectos, redistribución del presupuesto publicitario y optimización de los embudos de conversión. Morans Capital Solutions pudo tomar decisiones estratégicas respaldadas por datos verificables, maximizando el retorno de cada peso invertido.',
+      title: "Moran's Capital Solutions",
+      client: 'Sector inmobiliario · Estructura interna, datos y captación',
+      description:
+        'Organizamos la estructura interna de la agencia con sistemas integrados, almacenamiento centralizado de datos de clientes y aprovechamiento de las alianzas del sector. En paralelo, desplegamos una estrategia de captación de prospectos, tanto compradores como propietarios de inmuebles, que le permitió ganar presencia en Bogotá y la Sabana en menos de un año. Moran\'s Capital Solutions pasó de operar por intuición a decidir con datos verificables, maximizando el retorno de cada peso invertido.',
       results: [
+        { metric: 'Prospectos captados', value: '+45%' },
+        { metric: 'Propietarios captados', value: '+30%' },
         { metric: 'Tasa de conversión de leads', value: '+28%' },
         { metric: 'Costo por prospecto calificado', value: '-22%' },
-        { metric: 'Retorno sobre inversión publicitaria', value: '+41%' },
+        { metric: 'Cobertura Bogotá y Sabana', value: '<12 meses' },
       ],
       image: '/fondo.png',
       testimonial: 'Trabajar con DOMAKEA transformó la manera en que tomamos decisiones. Pasamos de operar por intuición a hacerlo con datos reales. Los resultados hablan por sí solos.',
@@ -422,10 +487,13 @@ const defaultContent = {
       id: 2,
       title: 'Clínica Odontológica',
       client: 'Salud · Odontología',
-      description: 'La clínica tenía pauta activa en Meta pero no tenía claridad de cuántos pacientes realmente llegaban por ese canal. El proceso de contacto era manual y la tasa de conversión de consulta a paciente era desconocida.',
+      description:
+        'La clínica tenía pauta activa en Meta, pero no tenía claridad de cuántos pacientes llegaban realmente por ese canal, y el proceso de contacto era manual. Digitalizamos los embudos de venta y los canales digitales, y los integramos con la operación física. El resultado fue una mayor rotación de pacientes, más fidelización y una marca fortalecida, con una conversión de consulta a paciente que antes no se podía medir.',
       results: [
+        { metric: 'Rotación de pacientes', value: '+32%' },
+        { metric: 'Fidelización', value: '+27%' },
         { metric: 'Visibilidad digital', value: '+65%' },
-        { metric: 'Tasa de conversión', value: '+30%' },
+        { metric: 'Conversión de consulta a paciente', value: '+30%' },
         { metric: 'Tiempo de ejecución', value: '4 sem' },
       ],
       image: '/serv_odo.JPG',
@@ -434,12 +502,15 @@ const defaultContent = {
     },
     {
       id: 3,
-      title: 'Estetica y Belleza',
-      client: 'Servicios personales',
-      description: 'Estructuramos su marca personal desde el diagnóstico, identificamos su servicio de mayor rentabilidad y redefinimos toda su comunicación alrededor de ese diferenciador.',
+      title: 'Estética y Belleza',
+      client: 'Servicios personales · Fidelización y generación de demanda',
+      description:
+        'Estructuramos su marca personal desde el diagnóstico, identificamos el servicio de mayor rentabilidad y redefinimos toda su comunicación alrededor de ese diferenciador. Sobre esa base generamos demanda nueva, fidelizamos a las clientas actuales y optimizamos el embudo de ventas, desde la primera consulta hasta la recompra.',
       results: [
         { metric: 'Consultas calificadas', value: '+40%' },
-        { metric: 'Valor por cliente', value: '18.3%' },
+        { metric: 'Clientas recurrentes', value: '+35%' },
+        { metric: 'Conversión del embudo', value: '+25%' },
+        { metric: 'Valor por cliente', value: '+18%' },
         { metric: 'Tiempo de entrega', value: '5 sem' },
       ],
       image: '/serv_est.JPG',
@@ -448,13 +519,16 @@ const defaultContent = {
     },
     {
       id: 4,
-      title: 'Auditoría de Pauta · 3 empresas',
-      client: 'Multisectorial · Inversión publicitaria',
-      description: 'A través de auditorías de campañas activas, identificamos fugas de presupuesto relacionadas con segmentaciones incorrectas, mala asignación de inversión y baja optimización de métricas clave.',
+      title: 'Consultoría y Auditoría de Modelos de Negocio · 3 empresas',
+      client: 'Multisectorial · Analítica de datos e innovación',
+      description:
+        'Auditamos modelos de negocio y aplicamos analítica de datos para identificar vacíos en la operación digital, directamente en el proceso de ventas. Implementamos estrategias de innovación y modernización de modelos de negocio, y además fortalecimos la inversión publicitaria corrigiendo segmentaciones incorrectas, mala asignación de presupuesto y baja optimización de métricas clave.',
       results: [
-        { metric: 'Presupuesto recuperado', value: '20-35%' },
+        { metric: 'Presupuesto recuperado', value: '20–35%' },
+        { metric: 'Tiempo de cierre', value: '-20%' },
+        { metric: 'Retorno sobre inversión', value: '+34%' },
         { metric: 'Costo por cliente', value: '-15%' },
-        { metric: 'Retorno sobre pauta', value: '+34%' },
+        { metric: 'Empresas auditadas', value: '3' },
       ],
       image: '/serv_audi.png',
       testimonial: 'La optimización de nuestros procesos comerciales nos permitió cerrar más negocios en menos tiempo. Excelente trabajo.',

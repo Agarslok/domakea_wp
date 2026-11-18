@@ -7,29 +7,15 @@ import { useMediaQuery } from '@/hooks/useMediaQuery';
 /**
  * Riel de secciones: hilo vertical que conecta todas las partes del Home.
  * Desktop: siempre visible, con etiqueta al pasar el cursor.
- * Móvil: aparece mientras haces scroll y se esconde después.
+ * Móvil: oculto (solo desktop).
  */
 const SectionRail = ({ sections }) => {
   const desktop = useMediaQuery('(min-width: 768px)');
   const [active, setActive] = useState(sections[0]?.id);
-  const [awake, setAwake] = useState(false);
   const [hovered, setHovered] = useState(null);
 
   useEffect(() => {
-    let timer;
-    const onScroll = () => {
-      setAwake(true);
-      clearTimeout(timer);
-      timer = setTimeout(() => setAwake(false), 1800);
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      clearTimeout(timer);
-    };
-  }, []);
-
-  useEffect(() => {
+    if (!desktop) return undefined;
     const observer = new IntersectionObserver(
       (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
       { rootMargin: '-45% 0px -50% 0px' }
@@ -39,7 +25,9 @@ const SectionRail = ({ sections }) => {
       if (el) observer.observe(el);
     });
     return () => observer.disconnect();
-  }, [sections]);
+  }, [desktop, sections]);
+
+  if (!desktop) return null;
 
   const go = (id) => {
     haptic();
@@ -47,7 +35,7 @@ const SectionRail = ({ sections }) => {
   };
 
   const first = sections[0]?.id;
-  const hidden = active === first || (!desktop && !awake);
+  const hidden = active === first;
   const activeIndex = Math.max(0, sections.findIndex((s) => s.id === active));
 
   return (

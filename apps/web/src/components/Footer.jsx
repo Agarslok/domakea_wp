@@ -82,6 +82,12 @@ const Footer = () => {
               <Link to="/contacto" className="block text-secondary-foreground/80 hover:text-primary transition-colors duration-200">
                 Contacto
               </Link>
+              <Link
+                to="/pitch"
+                className="block text-secondary-foreground/80 hover:text-primary transition-colors duration-200"
+              >
+                Pitch
+              </Link>
             </nav>
           </div>
 

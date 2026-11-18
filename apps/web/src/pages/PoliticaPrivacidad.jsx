@@ -433,23 +433,14 @@ const PoliticaPrivacidad = () => {
 
             {/* 12 */}
             <Section number="12" title="Procedimiento para el Ejercicio de Derechos">
-              <p className="mb-4">El Titular o sus causahabientes podrán ejercer sus derechos mediante solicitud escrita a través de los siguientes canales:</p>
+              <p className="mb-4">El Titular o sus causahabientes podrán ejercer sus derechos mediante solicitud escrita a través del correo electrónico:</p>
               <div className="flex flex-col gap-2 mb-5">
-                {[
-                  { label: 'Correo electrónico', value: 'domakea.cons@gmail.com', href: null },
-                  { label: 'Formulario en línea', value: 'Formulario de solicitud de privacidad', href: 'https://docs.google.com/forms/d/e/1FAIpQLSfdHzfgtKFgzUENpGhnZXCSDWCv1s9eDExKF5fC8OAOKqVGEA/viewform?usp=dialog' },
-                ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-3 bg-muted/40 rounded-xl px-4 py-3 text-sm">
-                    <span className="text-muted-foreground w-36 flex-shrink-0">{item.label}</span>
-                    {item.href ? (
-                      <a href={item.href} target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline">
-                        {item.value}
-                      </a>
-                    ) : (
-                      <span className="font-medium text-foreground">{item.value}</span>
-                    )}
-                  </div>
-                ))}
+                <div className="flex items-center gap-3 bg-muted/40 rounded-xl px-4 py-3 text-sm">
+                  <span className="text-muted-foreground w-36 flex-shrink-0">Correo electrónico</span>
+                  <a href="mailto:domakea.cons@gmail.com" className="font-medium text-primary hover:underline">
+                    domakea.cons@gmail.com
+                  </a>
+                </div>
               </div>
               <div className="space-y-4">
                 {[

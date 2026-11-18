@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { flushPendingLeads } from '@/lib/leadSubmit';
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
 import { Toaster } from "./components/ui/sonner";
 import ScrollToTop from './components/ScrollToTop';
@@ -10,9 +11,14 @@ import SobreNosotrosPage from './pages/SobreNosotrosPage.jsx';
 import ContactoPage from './pages/ContactoPage.jsx';
 import AdminPanel from './pages/AdminPanel.jsx';
 import PartnersPage from './pages/PartnersPage.jsx';
+import PitchPage from './pages/PitchPage.jsx';
 import PoliticaPrivacidad from './pages/PoliticaPrivacidad.jsx';
 
 function App() {
+  useEffect(() => {
+    flushPendingLeads().catch(() => {});
+  }, []);
+
   return (
     <ContentProvider>
       <Router>
@@ -26,6 +32,7 @@ function App() {
           <Route path="/contacto" element={<ContactoPage />} />
           <Route path="/admin" element={<AdminPanel />} />
           <Route path="/partners" element={<PartnersPage />} />
+          <Route path="/pitch" element={<PitchPage />} />
           <Route path="*" element={
             <div className="min-h-screen flex items-center justify-center bg-background">
               <div className="text-center">
