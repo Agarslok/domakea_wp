@@ -21,7 +21,19 @@ const PitchPage = () => {
     };
 
     const onKeyDown = (event) => {
-      if (event.key === 'Escape') exit();
+      if (event.key === 'Escape') {
+        exit();
+        return;
+      }
+      const next = event.key === 'ArrowRight' || event.key === 'ArrowDown';
+      const prev = event.key === 'ArrowLeft' || event.key === 'ArrowUp';
+      if (!next && !prev) return;
+      event.preventDefault();
+      const frame = document.getElementById('pitch-deck');
+      frame?.contentWindow?.postMessage(
+        { type: next ? 'pitch-next' : 'pitch-prev' },
+        window.location.origin,
+      );
     };
 
     window.addEventListener('message', onMessage);

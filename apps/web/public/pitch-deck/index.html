@@ -404,8 +404,13 @@ setTimeout(()=>{if(id!==transId)return;if(o&&o!==s)o.classList.remove('out');bus
 const nx=()=>go(cur+1),pv=()=>go(cur-1);
 addEventListener('keydown',e=>{
   if(e.key==='Escape'){e.preventDefault();try{window.parent.postMessage({type:'pitch-exit'},'*')}catch(_){}return;}
-  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))nx();
-  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))pv();
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();nx();}
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();pv();}
+});
+addEventListener('message',e=>{
+  if(e.origin!==location.origin)return;
+  if(e.data?.type==='pitch-next')nx();
+  if(e.data?.type==='pitch-prev')pv();
 });
 let wt=0;addEventListener('wheel',e=>{if(Date.now()-wt<1200)return;wt=Date.now();e.deltaY>0?nx():pv()});
 let tx=0;addEventListener('touchstart',e=>tx=e.touches[0].clientX);addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>50)d<0?nx():pv()});
